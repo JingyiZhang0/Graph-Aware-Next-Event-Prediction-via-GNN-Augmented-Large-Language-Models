@@ -1,0 +1,28 @@
+device: cuda 
+
+data:
+  path: data/helpdesk_processed.csv
+  window_size: 4
+  batch_size: 16
+
+model:
+  gnn_embed_dim: 256         # GNN 输出维度
+  # text_embed_dim: 384          # 文本编码维度（如果用自己编码器）
+  bert_embed_dim: 768          # DistilBERT 的输出维度
+  project_gnn_dim: 768         # GNN 融合到 BERT 的目标维度
+  model_name: microsoft/deberta-v3-base
+  topk_neighbors: 3
+  num_labels: null             # 初始化后自动设置
+  fusion_method: prepend_cls   # 结构信息作为 [CLS] token
+  max_seq_len: 256             # 控制文本 tokenizer 最大长度
+  freeze_bert: False           # 是否冻结 BERT 权重
+  use_gnn: False                # 新增开关：False 表示只用 LLM
+
+training:
+  num_epochs: 20
+  gnn_learning_rate: 2e-4
+  llm_learning_rate: 1e-5
+
+
+logging:
+  log_base: "./logs/experiment_helpdesk_WS4"

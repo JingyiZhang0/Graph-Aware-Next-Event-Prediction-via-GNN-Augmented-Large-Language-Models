@@ -1,0 +1,27 @@
+device: cuda 
+
+data:
+  path: data/BPI12.csv
+  window_size: 2
+  batch_size: 6
+
+model:
+  gnn_embed_dim: 128           # Output dimension of GNN
+  # text_embed_dim: 384          # Text encoding dimension (if using a custom encoder)
+  bert_embed_dim: 768          # Output dimension of DistilBERT
+  project_gnn_dim: 768         # Target dimension for GNN fusion into BERT
+  model_name: intfloat/multilingual-e5-large
+  topk_neighbors: 3
+  num_labels: null             # Automatically set after initialization
+  fusion_method: prepend_cls   # Structural information as [CLS] token
+  max_seq_len: 256             # Maximum length for text tokenizer
+  freeze_bert: True           # Whether to freeze BERT weights
+
+training:
+  num_epochs: 20
+  gnn_learning_rate: 1e-4
+  llm_learning_rate: 5e-5
+
+
+logging:
+  log_base: "./logs/experiment_2012_e5_WS2"

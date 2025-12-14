@@ -1,0 +1,8 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": [],
+
+      // 关闭自动激活 conda 环境时注入错误的 conda-hook.ps1
+    "python.terminal.activateEnvironment": false
+}
